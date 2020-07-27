@@ -1,5 +1,6 @@
 package com.example.android.adventure.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -8,33 +9,33 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.utils.Ritual;
+import com.example.android.adventure.utils.SearchResult;
 
 import java.util.ArrayList;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Ritual}.
+ * {@link RecyclerView.Adapter} that can display a {@link SearchResult}.
  */
-public class RitualRecyclerViewAdapter extends RecyclerView.Adapter<RitualRecyclerViewAdapter.ViewHolder> {
+public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder> {
 
-    private final ArrayList<Ritual> mValues;
+    private final ArrayList<SearchResult> mValues;
 
-    public RitualRecyclerViewAdapter(ArrayList<Ritual> items) {
+    public SearchRecyclerViewAdapter(ArrayList<SearchResult> items) {
         mValues = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ritual_fragment_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getTitle());
-        holder.mContentView.setText(mValues.get(position).getContent());
+        holder.mContentView.setText(mValues.get(position).getDescription());
     }
 
     @Override
@@ -46,7 +47,7 @@ public class RitualRecyclerViewAdapter extends RecyclerView.Adapter<RitualRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Ritual mItem;
+        public SearchResult mItem;
 
         public ViewHolder(View view) {
             super(view);

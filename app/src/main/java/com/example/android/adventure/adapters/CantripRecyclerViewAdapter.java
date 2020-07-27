@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.fragments.dummy.DummyContent.DummyItem;
 import com.example.android.adventure.utils.Cantrip;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Cantrip}.

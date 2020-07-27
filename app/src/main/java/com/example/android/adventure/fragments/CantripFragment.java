@@ -14,9 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.android.adventure.R;
 import com.example.android.adventure.adapters.CantripRecyclerViewAdapter;
-import com.example.android.adventure.fragments.dummy.DummyContent;
 import com.example.android.adventure.utils.Cantrip;
-import com.example.android.adventure.utils.Spell;
 
 import java.util.ArrayList;
 
