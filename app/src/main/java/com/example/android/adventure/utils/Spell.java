@@ -1,4 +1,4 @@
-package com.example.android.adventure;
+package com.example.android.adventure.utils;
 
 public class Spell {
 

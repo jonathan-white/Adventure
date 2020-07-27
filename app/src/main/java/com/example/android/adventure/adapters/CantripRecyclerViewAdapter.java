@@ -1,4 +1,4 @@
-package com.example.android.adventure.ui.main;
+package com.example.android.adventure.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,37 +9,37 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.Spell;
+import com.example.android.adventure.fragments.dummy.DummyContent.DummyItem;
+import com.example.android.adventure.utils.Cantrip;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Spell}.
+ * {@link RecyclerView.Adapter} that can display a {@link Cantrip}.
+ * TODO: Replace the implementation with code for your data type.
  */
-public class MySpellRecyclerViewAdapter extends RecyclerView.Adapter<MySpellRecyclerViewAdapter.ViewHolder> {
+public class CantripRecyclerViewAdapter extends RecyclerView.Adapter<CantripRecyclerViewAdapter.ViewHolder> {
 
-    private final ArrayList<Spell> mValues;
+    private final ArrayList<Cantrip> mValues;
 
-    public MySpellRecyclerViewAdapter(ArrayList<Spell> items) {
+    public CantripRecyclerViewAdapter(ArrayList<Cantrip> items) {
         mValues = items;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.spell_fragment_item, parent, false);
-
-        //TODO: Do something here???
+                .inflate(R.layout.cantrip_fragment_item, parent, false);
         return new ViewHolder(view);
     }
 
-    //Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getTitle());
-        holder.mContentView.setText(mValues.get(position).getDescription());
+        holder.mContentView.setText(mValues.get(position).getContent());
     }
 
     @Override
@@ -47,14 +47,11 @@ public class MySpellRecyclerViewAdapter extends RecyclerView.Adapter<MySpellRecy
         return mValues.size();
     }
 
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Spell mItem;
+        public Cantrip mItem;
 
         public ViewHolder(View view) {
             super(view);

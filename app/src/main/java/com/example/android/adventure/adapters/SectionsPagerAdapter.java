@@ -1,4 +1,4 @@
-package com.example.android.adventure.ui.main;
+package com.example.android.adventure.adapters;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.android.adventure.R;
+import com.example.android.adventure.fragments.CantripFragment;
+import com.example.android.adventure.fragments.RitualFragment;
+import com.example.android.adventure.fragments.SpellFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -28,9 +31,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new SpellFragment();
         } else if (position == 1) {
-            return new SpellFragment();
+            return new CantripFragment();
         } else {
-            return new SpellFragment();
+            return new RitualFragment();
         }
     }
 

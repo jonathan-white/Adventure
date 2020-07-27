@@ -1,15 +1,17 @@
-package com.example.android.adventure;
+package com.example.android.adventure.activities;
 
 import android.os.Bundle;
+
+import com.example.android.adventure.R;
+import com.example.android.adventure.utils.Spell;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
-import com.example.android.adventure.ui.main.SectionsPagerAdapter;
+import com.example.android.adventure.adapters.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
 

@@ -1,4 +1,4 @@
-package com.example.android.adventure.ui.main;
+package com.example.android.adventure.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.Spell;
+import com.example.android.adventure.adapters.SpellRecyclerViewAdapter;
+import com.example.android.adventure.utils.Spell;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class SpellFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            recyclerView.setAdapter(new MySpellRecyclerViewAdapter(spells));
+            recyclerView.setAdapter(new SpellRecyclerViewAdapter(spells));
         }
         return view;
     }
