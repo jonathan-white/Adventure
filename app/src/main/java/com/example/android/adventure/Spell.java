@@ -14,7 +14,7 @@ public class Spell {
      * @param title is the name of the spell
      * @param description outlines the scope of the spell
      * @param range is the specific range of the spell
-     * @param duration is how long it takes to cast the spell
+     * @param duration is how the spell will last
      * @param save is whether or not the spell allows saving throws
      * @param school is the school the spell belongs to
      */

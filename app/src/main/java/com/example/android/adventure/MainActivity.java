@@ -24,9 +24,17 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         ArrayList<Spell> spells = new ArrayList<>();
+        spells.add(new Spell("Abjuration",
+                "Send a single individual from another plane back to its home realm",
+                "Near", "Instant",true,"Summoning"));
+        spells.add(new Spell("Banish the Dead",
+                "Any undead creatures flee from the caster",
+                "Near", "10 minutes",true,"Necromancy"));
         spells.add(new Spell("Abjuration",
                 "Send a single individual from another plane back to its home realm",
                 "Near", "Instant",true,"Summoning"));
