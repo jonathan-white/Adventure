@@ -51,6 +51,12 @@ public class SpellFragment extends Fragment {
         spells.add(new Spell("Beast Shape",
                 "the mage can take the form of a common animal that they have seen creatures that can fly or have a swim movement are excluded",
                 "Self", "1 hour",false,"Summoning"));
+        spells.add(new Spell("Burning Hands",
+                "Causes fire damage(1d10)  to a target. Save for 1/2 damage",
+                "Near", "Instant",true,"Offense"));
+        spells.add(new Spell("Call the Swarm",
+                "small animals surround a target causing 1 hp damage per round, Save for zero damage",
+                "Near", "Concentration",true,"Summoning"));
 
         // Set the adapter
         if (view instanceof RecyclerView) {
