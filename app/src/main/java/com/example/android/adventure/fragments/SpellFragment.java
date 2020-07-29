@@ -47,7 +47,7 @@ public class SpellFragment extends Fragment {
                 "Near", "10 minutes",true,"Necromancy"));
         spells.add(new Spell("Bar the Way",
                 "An ordinary door or gate become un-passable",
-                "Close", "1 minute",false,"Enchant"));
+                "Close", "1 minute",false,"Enchantment"));
         spells.add(new Spell("Beast Shape",
                 "the mage can take the form of a common animal that they have seen creatures that can fly or have a swim movement are excluded",
                 "Self", "1 hour",false,"Summoning"));
@@ -57,6 +57,18 @@ public class SpellFragment extends Fragment {
         spells.add(new Spell("Call the Swarm",
                 "small animals surround a target causing 1 hp damage per round, Save for zero damage",
                 "Near", "Concentration",true,"Summoning"));
+        spells.add(new Spell("Commanding Word",
+                "Compels target to follow stated course of action.  Must be a single word.  Can gesture.",
+                "Near", "1 round",true,"Enchantment"));
+        spells.add(new Spell("Conjure Darkness",
+                "Entire area in near range becomes dark",
+                "Near", "3 rounds/level",false,"Illusion"));
+        spells.add(new Spell("Counter Spell",
+                "Caster has disadvantage on spell casting for 1 round",
+                "Near", "1 round",true,"Defense"));
+        spells.add(new Spell("Dark Sight",
+                "Caster can see up to far range  in the dark",
+                "Self", "1 hour",false,"Divination"));
 
         // Set the adapter
         if (view instanceof RecyclerView) {
