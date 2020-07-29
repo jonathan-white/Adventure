@@ -1,31 +1,44 @@
 package com.example.android.adventure.utils;
 
-public class Spell {
+import org.bson.types.ObjectId;
 
-    private String mTitle;
-    private String mDescription;
-    private String mRange;
-    private String mDuration;
-    private boolean mSave;
-    private String mSchool;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Spell extends RealmObject {
+
+    @PrimaryKey
+    ObjectId _id = new ObjectId();
+    String _partitionKey = "osa";
+
+    private String title;
+    private String description;
+    private String range;
+    private String duration;
+    private boolean save;
+    private String school;
+
+    public Spell() {
+
+    }
 
     /**
      * Constructor for the Spell class
-     * @param title is the name of the spell
-     * @param description outlines the scope of the spell
-     * @param range is the specific range of the spell
-     * @param duration is how the spell will last
-     * @param save is whether or not the spell allows saving throws
-     * @param school is the school the spell belongs to
+     * @param cTitle is the name of the spell
+     * @param cDescription outlines the scope of the spell
+     * @param cRange is the specific range of the spell
+     * @param cDuration is how the spell will last
+     * @param cSave is whether or not the spell allows saving throws
+     * @param cSchool is the school the spell belongs to
      */
-    public Spell(String title, String description, String range, String duration, boolean save,
-                 String school) {
-        mTitle = title;
-        mDescription = description;
-        mRange = range;
-        mDuration = duration;
-        mSave = save;
-        mSchool = school;
+    public Spell(String cTitle, String cDescription, String cRange, String cDuration, boolean cSave,
+                 String cSchool) {
+        title = cTitle;
+        description = cDescription;
+        range = cRange;
+        duration = cDuration;
+        save = cSave;
+        school = cSchool;
     }
 
     /**
@@ -33,7 +46,7 @@ public class Spell {
      * @return the title of the spell
      */
     public String getTitle(){
-        return mTitle;
+        return title;
     }
 
     /**
@@ -41,7 +54,7 @@ public class Spell {
      * @return a general description of the spell
      */
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     /**
@@ -49,7 +62,7 @@ public class Spell {
      * @return the specific range of the spell
      */
     public String getRange() {
-        return mRange;
+        return range;
     }
 
     /**
@@ -57,7 +70,7 @@ public class Spell {
      * @return the casting duration of the spell
      */
     public String getDuration() {
-        return mDuration;
+        return duration;
     }
 
     /**
@@ -65,7 +78,7 @@ public class Spell {
      * @return whether the spell allows for saving throws
      */
     public boolean getSave() {
-        return mSave;
+        return save;
     }
 
     /**
@@ -73,6 +86,6 @@ public class Spell {
      * @return the school of the spell
      */
     public String getSchool() {
-        return mSchool;
+        return school;
     }
 }

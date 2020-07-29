@@ -7,7 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.realm.Realm;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.User;
+import io.realm.mongodb.sync.SyncConfiguration;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +25,16 @@ import com.example.android.adventure.utils.Spell;
 
 import java.util.ArrayList;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
  * A fragment representing a list of Items.
  */
 public class SpellFragment extends Fragment {
 
     private int mColumnCount = 1;
+    public static User user;
+    public static Realm realm;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -36,6 +47,47 @@ public class SpellFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.spell_fragment_item_list, container, false);
+
+        /**
+         * Start of Realm details
+         */
+        String appID = "osa-jcobl";
+        App app = new App(new AppConfiguration.Builder(appID)
+                .build());
+        Credentials credentials = Credentials.anonymous();
+
+        app.loginAsync(credentials, it -> {
+            if (it.isSuccess()) {
+                Log.v("QUICKSTART", "Successfully authenticated anonymously.");
+                user = app.currentUser();
+
+                String partitionValue = "osa";
+                SyncConfiguration config = new SyncConfiguration.Builder(user, partitionValue)
+                        .waitForInitialRemoteData()
+                        .build();
+
+                // Sync all realm changes via a new instance, and when that instance has been successfully
+                // created connect it to an on-screen list (a recycler view)
+                Realm.getInstanceAsync(config, new Realm.Callback() {
+                    @Override
+                    @ParametersAreNonnullByDefault
+                    public void onSuccess(Realm _realm) {
+                        // since this realm should live exactly as long as this activity, assign the realm
+                        // to a member variable
+                        realm = _realm;
+                        Log.v("QUICKSTART", "Successfully instantiated realm!");
+                    }
+                });
+
+            } else {
+                Log.e("QUICKSTART", it.getError().toString());
+            }
+        });
+
+
+        /**
+         * End of Realm details
+         */
 
         // Create a list of words
         final ArrayList<Spell> spells = new ArrayList<>();
