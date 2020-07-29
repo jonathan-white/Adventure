@@ -1,5 +1,7 @@
 package com.example.android.adventure.activities;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.android.adventure.R;
@@ -10,7 +12,11 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.SearchView;
+
 import com.example.android.adventure.adapters.SectionsPagerAdapter;
 
 import java.util.ArrayList;
@@ -29,26 +35,28 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        ArrayList<Spell> spells = new ArrayList<>();
-        spells.add(new Spell("Abjuration",
-                "Send a single individual from another plane back to its home realm",
-                "Near", "Instant",true,"Summoning"));
-        spells.add(new Spell("Banish the Dead",
-                "Any undead creatures flee from the caster",
-                "Near", "10 minutes",true,"Necromancy"));
-        spells.add(new Spell("Abjuration",
-                "Send a single individual from another plane back to its home realm",
-                "Near", "Instant",true,"Summoning"));
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                onSearchRequested();
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Get the SearchView and set the Searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem((R.id.menu_search)).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+        return true;
     }
 }
