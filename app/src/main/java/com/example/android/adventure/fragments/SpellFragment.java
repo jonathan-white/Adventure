@@ -3,11 +3,13 @@ package com.example.android.adventure.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,11 @@ import android.view.ViewGroup;
 import com.example.android.adventure.R;
 import com.example.android.adventure.adapters.SpellRecyclerViewAdapter;
 import com.example.android.adventure.utils.Spell;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -36,6 +43,25 @@ public class SpellFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.spell_fragment_item_list, container, false);
+
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Fetch data from Firestore
+        db.collection("spells")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("FIREBASE_DATA", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("FIREBASE_DATA", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
 
         // Create a list of words
         final ArrayList<Spell> spells = new ArrayList<>();
