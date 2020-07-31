@@ -1,31 +1,37 @@
 package com.example.android.adventure.utils;
 
+import android.content.Context;
+
 public class Spell {
 
-    private String mTitle;
-    private String mDescription;
-    private String mRange;
-    private String mDuration;
-    private boolean mSave;
-    private String mSchool;
+    private String title;
+    private String description;
+    private String range;
+    private String duration;
+    private boolean save;
+    private String school;
+
+    public Spell() {
+        super();
+    }
 
     /**
      * Constructor for the Spell class
-     * @param title is the name of the spell
-     * @param description outlines the scope of the spell
-     * @param range is the specific range of the spell
-     * @param duration is how the spell will last
-     * @param save is whether or not the spell allows saving throws
-     * @param school is the school the spell belongs to
+     * @param mTitle is the name of the spell
+     * @param mDescription outlines the scope of the spell
+     * @param mRange is the specific range of the spell
+     * @param mDuration is how the spell will last
+     * @param mSave is whether or not the spell allows saving throws
+     * @param mSchool is the school the spell belongs to
      */
-    public Spell(String title, String description, String range, String duration, boolean save,
-                 String school) {
-        mTitle = title;
-        mDescription = description;
-        mRange = range;
-        mDuration = duration;
-        mSave = save;
-        mSchool = school;
+    public Spell(String mTitle, String mDescription, String mRange, String mDuration, boolean mSave,
+                 String mSchool) {
+        title = mTitle;
+        description = mDescription;
+        range = mRange;
+        duration = mDuration;
+        save = mSave;
+        school = mSchool;
     }
 
     /**
@@ -33,7 +39,11 @@ public class Spell {
      * @return the title of the spell
      */
     public String getTitle(){
-        return mTitle;
+        return title;
+    }
+
+    public void setTitle(String mTitle) {
+        title = mTitle;
     }
 
     /**
@@ -41,7 +51,11 @@ public class Spell {
      * @return a general description of the spell
      */
     public String getDescription() {
-        return mDescription;
+        return description;
+    }
+
+    public void setDescription(String mDescription) {
+        description = mDescription;
     }
 
     /**
@@ -49,7 +63,11 @@ public class Spell {
      * @return the specific range of the spell
      */
     public String getRange() {
-        return mRange;
+        return range;
+    }
+
+    public void setRange(String mRange) {
+        range = mRange;
     }
 
     /**
@@ -57,7 +75,11 @@ public class Spell {
      * @return the casting duration of the spell
      */
     public String getDuration() {
-        return mDuration;
+        return duration;
+    }
+
+    public void setDuration(String mDuration) {
+        duration = mDuration;
     }
 
     /**
@@ -65,7 +87,11 @@ public class Spell {
      * @return whether the spell allows for saving throws
      */
     public boolean getSave() {
-        return mSave;
+        return save;
+    }
+
+    public void setSave(boolean mSave) {
+        save = mSave;
     }
 
     /**
@@ -73,6 +99,15 @@ public class Spell {
      * @return the school of the spell
      */
     public String getSchool() {
-        return mSchool;
+        return school;
+    }
+
+
+    /**
+     *
+     * @param mSchool sets the school attribute
+     */
+    public void setSchool(String mSchool) {
+        school = mSchool;
     }
 }

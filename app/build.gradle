@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,11 +29,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
     def lifecycle_version = "2.2.0"
     def multidex_version = "2.0.1"
 
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+
+    // MultiDex (for Android SDK versions 20 and below)
     implementation "androidx.multidex:multidex:$multidex_version"
 
     // ViewModel
@@ -41,6 +43,9 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     // Java8
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"

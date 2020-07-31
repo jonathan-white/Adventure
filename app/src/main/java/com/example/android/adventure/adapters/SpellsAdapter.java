@@ -16,11 +16,11 @@ import java.util.ArrayList;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Spell}.
  */
-public class SpellRecyclerViewAdapter extends RecyclerView.Adapter<SpellRecyclerViewAdapter.ViewHolder> {
+public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder> {
 
     private final ArrayList<Spell> mValues;
 
-    public SpellRecyclerViewAdapter(ArrayList<Spell> items) {
+    public SpellsAdapter(ArrayList<Spell> items) {
         mValues = items;
     }
 
@@ -44,7 +44,7 @@ public class SpellRecyclerViewAdapter extends RecyclerView.Adapter<SpellRecycler
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues == null ? 0 : mValues.size();
     }
 
     /**
