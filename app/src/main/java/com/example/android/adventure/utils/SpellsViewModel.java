@@ -17,8 +17,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SpellViewModel extends ViewModel {
+public class SpellsViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Spell>> spells;
+
+    /**
+     * Getter method used to allow other classes to access the list of spells
+     * @return
+     */
     public LiveData<ArrayList<Spell>> getSpells() {
         if (spells == null) {
             spells = new MutableLiveData<ArrayList<Spell>>();
@@ -28,31 +33,35 @@ public class SpellViewModel extends ViewModel {
     }
 
     private void loadSpells() {
-        // Access a Cloud Firestore instance from your Activity
+        // Setup a Cloud Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Add Firebase settings to persist the data when working offline. This is critical to
+        // prevent the app from re-fetching data it already has
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         db.setFirestoreSettings(settings);
 
-        Log.d("LOADING_SPELLS", "Starting DB Connection");
-
+        // Setup a temp ArrayList which will hold the list of spells
         ArrayList listOfSpells = new ArrayList<>();
 
-        // Fetch data from Firestore
+        // Fetch spells from Firebase
         db.collection("spells")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            // If the OnCompleteListener is successful, cycle through each doc
+                            // and add them to the spells ArrayList
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                // instantiate a Spells object with the fetched document's info
                                 Spell spell = document.toObject(Spell.class);
-//                                Log.d("LOADING_SPELLS", "adding doc data: " + document.getData());
                                 listOfSpells.add(spell);
-//                                Log.d("FIREBASE_DATA", document.getId() + " => " + document.getData());
                             }
-                            Log.d("LOADING_SPELLS", "spells data after load: " + listOfSpells.toString());
+                            // once all spells have been added ot listOfSpells, store those details
+                            // into the spells MutableLiveData variable
                             spells.setValue(listOfSpells);
                         } else {
                             Log.w("FIREBASE_DATA", "Error getting documents.", task.getException());
@@ -61,9 +70,4 @@ public class SpellViewModel extends ViewModel {
                 });
     }
 
-//    @NonNull
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
 }

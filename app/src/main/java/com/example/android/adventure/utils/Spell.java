@@ -11,6 +11,10 @@ public class Spell {
     private boolean save;
     private String school;
 
+    /**
+     * Mandatory empty constructor for the viewModel to instantiate the class
+     * (e.g. upon screen orientation changes).
+     */
     public Spell() {
         super();
     }
