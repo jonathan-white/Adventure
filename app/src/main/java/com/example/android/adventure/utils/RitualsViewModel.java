@@ -18,22 +18,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SpellsViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<Spell>> spells;
+public class RitualsViewModel extends ViewModel {
+    private MutableLiveData<ArrayList<Ritual>> rituals;
 
     /**
-     * Getter method used to allow other classes to access the list of spells
+     * Getter method used to allow other classes to access the list of rituals
      * @return
      */
-    public LiveData<ArrayList<Spell>> getSpells() {
-        if (spells == null) {
-            spells = new MutableLiveData<ArrayList<Spell>>();
-            loadSpells();
+    public LiveData<ArrayList<Ritual>> getRituals() {
+        if (rituals == null) {
+            rituals = new MutableLiveData<>();
+            loadRituals();
         }
-        return spells;
+        return rituals;
     }
 
-    private void loadSpells() {
+    private void loadRituals() {
         // Setup a Cloud Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -44,34 +44,34 @@ public class SpellsViewModel extends ViewModel {
                 .build();
         db.setFirestoreSettings(settings);
 
-        // Setup a temp ArrayList which will hold the list of spells
-        ArrayList listOfSpells = new ArrayList<>();
+        // Setup a temp ArrayList which will hold the list of rituals
+        ArrayList listOfRituals = new ArrayList<>();
 
-        // Fetch spells from Firebase
-        db.collection("spells")
+        // Fetch rituals from Firebase
+        db.collection("rituals")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             // If the OnCompleteListener is successful, cycle through each doc
-                            // and add them to the spells ArrayList
+                            // and add them to the rituals ArrayList
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // instantiate a Spells object with the fetched document's info
-                                Spell spell = document.toObject(Spell.class);
-                                listOfSpells.add(spell);
+                                // instantiate a Ritual object with the fetched document's info
+                                Ritual ritual = document.toObject(Ritual.class);
+                                listOfRituals.add(ritual);
                             }
 
-                            //Sort the list of Spells by the Title
-                            Collections.sort(listOfSpells, new Comparator<Spell>() {
+                            //Sort the list by the Title
+                            Collections.sort(listOfRituals, new Comparator<Ritual>() {
                                 @Override
-                                public int compare(Spell o1, Spell o2) {
+                                public int compare(Ritual o1, Ritual o2) {
                                     return o1.getTitle().compareTo(o2.getTitle());
                                 }
                             });
-                            // once all spells have been added ot listOfSpells, store those details
-                            // into the spells MutableLiveData variable
-                            spells.setValue(listOfSpells);
+                            // once all rituals have been added ot listOfRituals, store those details
+                            // into the rituals MutableLiveData variable
+                            rituals.setValue(listOfRituals);
                         } else {
                             Log.w("FIREBASE_DATA", "Error getting documents.", task.getException());
                         }

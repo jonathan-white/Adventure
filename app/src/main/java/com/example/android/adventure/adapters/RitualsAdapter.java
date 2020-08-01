@@ -10,34 +10,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.utils.Spell;
+import com.example.android.adventure.utils.Ritual;
 
 import java.util.ArrayList;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Spell}.
+ * {@link RecyclerView.Adapter} that can display a {@link Ritual}.
  */
-public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewHolder> {
+public class RitualsAdapter extends RecyclerView.Adapter<RitualsAdapter.ViewHolder> {
 
-    private final ArrayList<Spell> mValues;
+    private final ArrayList<Ritual> mValues;
 
-    public SpellsAdapter(ArrayList<Spell> items) {
-        mValues = items;
-    }
+    public RitualsAdapter(ArrayList<Ritual> items) { mValues = items; }
 
-    // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public SpellViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.spell_fragment_item, parent, false);
-
-        return new SpellViewHolder(view);
+                .inflate(R.layout.ritual_fragment_item, parent, false);
+        return new ViewHolder(view);
     }
 
-    //Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final SpellViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mTitle.setText(mValues.get(position).getTitle());
         holder.mDescription.setText(mValues.get(position).getDescription());
@@ -48,16 +43,13 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
         return mValues == null ? 0 : mValues.size();
     }
 
-    /**
-     * Provide a reference to the type of views that you are using (custom SpellViewHolder)
-     */
-    public static class SpellViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mTitle;
         public final TextView mDescription;
-        public Spell mItem;
+        public Ritual mItem;
 
-        public SpellViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
             mView = view;
             mTitle = view.findViewById(R.id.item_number);
@@ -68,10 +60,10 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
                 @Override
                 public void onClick(View v) {
                     /*
-                     TODO: perform an action once a Spell has been clicked (i.e. display another
+                     TODO: perform an action once a Ritual has been clicked (i.e. display another
                      fragment)
                     */
-                    Log.d("SpellsAdapter", "Spell '" + mTitle.getText() + "' clicked.");
+                    Log.d("RitualsAdapter", "Ritual '" + mTitle.getText() + "' clicked.");
                 }
             });
         }

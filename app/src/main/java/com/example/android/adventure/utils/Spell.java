@@ -1,7 +1,5 @@
 package com.example.android.adventure.utils;
 
-import android.content.Context;
-
 public class Spell {
 
     private String title;

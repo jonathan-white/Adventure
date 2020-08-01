@@ -18,22 +18,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SpellsViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<Spell>> spells;
+public class CantripsViewModel extends ViewModel {
+    private MutableLiveData<ArrayList<Cantrip>> cantrips;
 
     /**
-     * Getter method used to allow other classes to access the list of spells
+     * Getter method used to allow other classes to access the list of cantrips
      * @return
      */
-    public LiveData<ArrayList<Spell>> getSpells() {
-        if (spells == null) {
-            spells = new MutableLiveData<ArrayList<Spell>>();
-            loadSpells();
+    public LiveData<ArrayList<Cantrip>> getCantrips() {
+        if (cantrips == null) {
+            cantrips = new MutableLiveData<>();
+            loadCantrips();
         }
-        return spells;
+        return cantrips;
     }
 
-    private void loadSpells() {
+    private void loadCantrips() {
         // Setup a Cloud Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -44,34 +44,34 @@ public class SpellsViewModel extends ViewModel {
                 .build();
         db.setFirestoreSettings(settings);
 
-        // Setup a temp ArrayList which will hold the list of spells
-        ArrayList listOfSpells = new ArrayList<>();
+        // Setup a temp ArrayList which will hold the list of cantrips
+        ArrayList listOfCantrips = new ArrayList<>();
 
-        // Fetch spells from Firebase
-        db.collection("spells")
+        // Fetch cantrips from Firebase
+        db.collection("cantrips")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             // If the OnCompleteListener is successful, cycle through each doc
-                            // and add them to the spells ArrayList
+                            // and add them to the cantrips ArrayList
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // instantiate a Spells object with the fetched document's info
-                                Spell spell = document.toObject(Spell.class);
-                                listOfSpells.add(spell);
+                                // instantiate a Cantrip object with the fetched document's info
+                                Cantrip cantrip = document.toObject(Cantrip.class);
+                                listOfCantrips.add(cantrip);
                             }
 
-                            //Sort the list of Spells by the Title
-                            Collections.sort(listOfSpells, new Comparator<Spell>() {
+                            //Sort the list by the Title
+                            Collections.sort(listOfCantrips, new Comparator<Cantrip>() {
                                 @Override
-                                public int compare(Spell o1, Spell o2) {
+                                public int compare(Cantrip o1, Cantrip o2) {
                                     return o1.getTitle().compareTo(o2.getTitle());
                                 }
                             });
-                            // once all spells have been added ot listOfSpells, store those details
-                            // into the spells MutableLiveData variable
-                            spells.setValue(listOfSpells);
+                            // once all cantrips have been added ot listOfCantrips, store those details
+                            // into the cantrips MutableLiveData variable
+                            cantrips.setValue(listOfCantrips);
                         } else {
                             Log.w("FIREBASE_DATA", "Error getting documents.", task.getException());
                         }

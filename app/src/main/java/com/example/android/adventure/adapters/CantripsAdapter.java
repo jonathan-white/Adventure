@@ -1,5 +1,6 @@
 package com.example.android.adventure.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -17,14 +18,15 @@ import java.util.ArrayList;
  * {@link RecyclerView.Adapter} that can display a {@link Cantrip}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class CantripRecyclerViewAdapter extends RecyclerView.Adapter<CantripRecyclerViewAdapter.ViewHolder> {
+public class CantripsAdapter extends RecyclerView.Adapter<CantripsAdapter.ViewHolder> {
 
     private final ArrayList<Cantrip> mValues;
 
-    public CantripRecyclerViewAdapter(ArrayList<Cantrip> items) {
+    public CantripsAdapter(ArrayList<Cantrip> items) {
         mValues = items;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -35,39 +37,39 @@ public class CantripRecyclerViewAdapter extends RecyclerView.Adapter<CantripRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getTitle());
-        holder.mContentView.setText(mValues.get(position).getContent());
+        holder.mTitle.setText(mValues.get(position).getTitle());
+        holder.mDescription.setText(mValues.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues == null ? 0 : mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mTitle;
+        public final TextView mDescription;
         public Cantrip mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTitle = view.findViewById(R.id.item_number);
+            mDescription = view.findViewById(R.id.content);
 
             // Define click listener for the ViewHolder's view.
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("CustomAdapter", "Element " + getAdapterPosition() + " clicked.");
+                    Log.d("CantripsAdapter", "Cantrip '" + mTitle.getText() + "' clicked.");
                 }
             });
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mDescription.getText() + "'";
         }
     }
 }

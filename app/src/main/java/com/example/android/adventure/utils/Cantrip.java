@@ -1,30 +1,32 @@
 package com.example.android.adventure.utils;
 
 public class Cantrip {
-    private String mTitle;
-    private String mContent;
-    private String mDuration;
+    private String title;
+    private String description;
+    private String duration;
+
+    public Cantrip() { super(); }
 
     /**
      *
-     * @param title of the cantrip
-     * @param content is the description of the cantrip
+     * @param mTitle of the cantrip
+     * @param mDescription is the description of the cantrip
      */
-    public Cantrip(String title, String content) {
-        mTitle = title;
-        mContent = content;
+    public Cantrip(String mTitle, String mDescription) {
+        title = mTitle;
+        description = mDescription;
     }
 
     /**
      *
-     * @param title of the cantrip
-     * @param content is the description of the cantrip
-     * @param duration is casting duration
+     * @param mTitle of the cantrip
+     * @param mDescription is the description of the cantrip
+     * @param mDuration is casting duration
      */
-    public Cantrip(String title, String content, String duration) {
-        mTitle = title;
-        mContent = content;
-        mDuration = duration;
+    public Cantrip(String mTitle, String mDescription, String mDuration) {
+        title = mTitle;
+        description = mDescription;
+        duration = mDuration;
     }
 
     /**
@@ -32,14 +34,30 @@ public class Cantrip {
      * @return title of the cantrip
      */
     public String getTitle() {
-        return mTitle;
+        return title;
+    }
+
+    public void setTitle(String mTitle) {
+        title = mTitle;
     }
 
     /**
      *
      * @return the description of the cantrip
      */
-    public String getContent() {
-        return mContent;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String mDesription) {
+        description = mDesription;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String mDuration) {
+        duration = mDuration;
     }
 }
