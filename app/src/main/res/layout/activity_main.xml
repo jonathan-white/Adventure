@@ -64,7 +64,7 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="spread"
             app:tabIndicatorColor="@android:color/holo_blue_dark"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@android:color/holo_blue_dark"
             app:tabTextColor="@color/black" />
 
@@ -79,17 +79,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabs, viewPager,
                 (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))).attach();
 
-        // Setup click listener for the Floating Action Button
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("CLOSE", v -> Log.d("SNACKBAR", "You've clicked the snackbar")).show());
     }
 
 
@@ -64,21 +60,6 @@ public class MainActivity extends AppCompatActivity {
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.d("SEARCHBOX_SUBMIT",query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d("SEARCHBOX_CHANGE",newText);
-                // sectionsAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
 
         return true;
     }
