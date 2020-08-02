@@ -5,45 +5,59 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.example.android.adventure.R;
-import com.example.android.adventure.utils.Spell;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.SearchView;
 
-import com.example.android.adventure.adapters.SectionsPagerAdapter;
-
-import java.util.ArrayList;
+import com.example.android.adventure.adapters.SectionsAdapter;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
+
+    @StringRes
+    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    SectionsAdapter sectionsAdapter;
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
+
+        // Setup a ViewPager that uses the SectionsAdapter
+        sectionsAdapter = new SectionsAdapter(this);
+        viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsAdapter);
+
+        // Setup a TabLayout that can sit atop the ViewPager
         TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
 
+        // Setup a TabLayoutMediator instance and set the Tab header Text
+        new TabLayoutMediator(tabs, viewPager,
+                (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))).attach();
 
+        // Setup click listener for the Floating Action Button
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("CLOSE", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("SNACKBAR", "You've clicked the snackbar");
+                    }
+                }).show());
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

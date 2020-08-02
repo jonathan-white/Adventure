@@ -7,48 +7,90 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:theme="@style/Theme.Adventure.AppBarOverlay">
+        android:layout_height="match_parent"
+        app:layout_anchorGravity="center">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+            android:theme="@style/Theme.Adventure.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:minHeight="?actionBarSize"
+                    android:padding="@dimen/appbar_padding"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+                <SearchView
+                    android:id="@+id/menu_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:layoutDirection="rtl">
+
+                </SearchView>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextColor="@color/white"
-            app:tabIndicatorColor="@color/teal_200"
-            app:tabSelectedTextColor="@color/teal_200"
-            app:tabMode="fixed"
-            android:background="?attr/colorPrimary"/>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:background="#4DDCDCDC"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"
+            app:layout_constraintBottom_toTopOf="@+id/view_pager"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:tabIndicatorColor="@android:color/holo_blue_dark"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@android:color/holo_blue_dark"
+            app:tabTextColor="@color/black" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/tabs"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <SearchView
-        android:id="@+id/menu_search"
-        android:layout_width="match_parent"
-        android:layout_height="24dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

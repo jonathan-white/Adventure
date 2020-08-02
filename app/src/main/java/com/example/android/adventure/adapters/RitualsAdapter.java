@@ -52,8 +52,8 @@ public class RitualsAdapter extends RecyclerView.Adapter<RitualsAdapter.ViewHold
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mTitle = view.findViewById(R.id.item_number);
-            mDescription = view.findViewById(R.id.content);
+            mTitle = view.findViewById(R.id.item_title);
+            mDescription = view.findViewById(R.id.item_description);
 
             // Define click listener for the ViewHolder's view.
             view.setOnClickListener(new View.OnClickListener() {

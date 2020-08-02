@@ -30,13 +30,15 @@ android {
 
 dependencies {
     def lifecycle_version = "2.2.0"
-    def multidex_version = "2.0.1"
+
+    //ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
 
     // MultiDex (for Android SDK versions 20 and below)
-    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation "androidx.multidex:multidex:2.0.1"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
@@ -57,7 +59,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    // Material Design
+    // Material Design; this includes:
+    // - TabLayout
     implementation 'com.google.android.material:material:1.1.0'
 
     // Constraint Layout
