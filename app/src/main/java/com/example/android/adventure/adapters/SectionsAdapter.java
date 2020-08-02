@@ -39,4 +39,7 @@ public class SectionsAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return NUM_PAGES;
     }
+
+
+
 }

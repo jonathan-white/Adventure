@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.android.adventure.R;
@@ -17,11 +19,20 @@ import java.util.ArrayList;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Ritual}.
  */
-public class RitualsAdapter extends RecyclerView.Adapter<RitualsAdapter.ViewHolder> {
+public class RitualsAdapter extends RecyclerView.Adapter<RitualsAdapter.ViewHolder> implements Filterable {
 
-    private final ArrayList<Ritual> mValues;
+    private final ArrayList<Ritual> mOriginalList;
+    private ArrayList<Ritual> mList;
 
-    public RitualsAdapter(ArrayList<Ritual> items) { mValues = items; }
+    public RitualsAdapter() {
+        mOriginalList = new ArrayList<>();
+        mList = new ArrayList<>();
+    }
+
+    public RitualsAdapter(ArrayList<Ritual> items) {
+        mOriginalList = items;
+        mList = items;
+    }
 
     @NonNull
     @Override
@@ -33,15 +44,52 @@ public class RitualsAdapter extends RecyclerView.Adapter<RitualsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mTitle.setText(mValues.get(position).getTitle());
-        holder.mDescription.setText(mValues.get(position).getDescription());
+        holder.mItem = mList.get(position);
+        holder.mTitle.setText(mList.get(position).getTitle());
+        holder.mDescription.setText(mList.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return mValues == null ? 0 : mValues.size();
+        return mList == null ? 0 : mList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mList = (ArrayList<Ritual>) results.values;
+                notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                ArrayList<Ritual> filteredResults = null;
+                if (constraint.length() == 0) {
+                    filteredResults = mOriginalList;
+                } else {
+                    filteredResults = getFilteredResults(constraint.toString().toLowerCase());
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResults;
+
+                return results;
+            }
+        };
+    }
+
+    protected ArrayList<Ritual> getFilteredResults(String query) {
+        ArrayList<Ritual> results = new ArrayList<>();
+        for (Ritual item : mOriginalList) {
+            if (item.getTitle().toLowerCase().contains(query)) {
+                results.add(item);
+            }
+        }
+        return results;
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

@@ -59,6 +59,7 @@ public class SpellsViewModel extends ViewModel {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // instantiate a Spells object with the fetched document's info
                                 Spell spell = document.toObject(Spell.class);
+//                                document.getId();
                                 listOfSpells.add(spell);
                             }
 

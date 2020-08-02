@@ -16,7 +16,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
 import android.widget.SearchView;
 
 import com.example.android.adventure.adapters.SectionsAdapter;
@@ -49,14 +48,8 @@ public class MainActivity extends AppCompatActivity {
         // Setup click listener for the Floating Action Button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("CLOSE", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("SNACKBAR", "You've clicked the snackbar");
-                    }
-                }).show());
+                .setAction("CLOSE", v -> Log.d("SNACKBAR", "You've clicked the snackbar")).show());
     }
-
 
 
     @Override
@@ -66,10 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the SearchView and set the Searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem((R.id.menu_search)).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("SEARCHBOX_SUBMIT",query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("SEARCHBOX_CHANGE",newText);
+                // sectionsAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         return true;
     }

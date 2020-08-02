@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha05"
+        classpath 'com.android.tools.build:gradle:4.2.0-alpha07'
 
         // Firestore SDK
         classpath 'com.google.gms:google-services:4.3.3'

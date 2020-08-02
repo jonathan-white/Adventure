@@ -3,6 +3,8 @@ package com.example.android.adventure.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class RitualFragment extends Fragment {
 
     private ArrayList<Ritual> rituals;
+    private RitualsAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,18 +44,37 @@ public class RitualFragment extends Fragment {
         // Setup a ViewModel using the RitualsViewModel class
         RitualsViewModel ritualsList = new ViewModelProvider(this).get(RitualsViewModel.class);
 
+        mAdapter = new RitualsAdapter();
+
         // Fetch the list of rituals from the server and display them within the RecyclerView
         ritualsList.getRituals().observe(getViewLifecycleOwner(), serverRituals -> {
             rituals = serverRituals;
 
             // Set the adapter
+            mAdapter = new RitualsAdapter(rituals);
             if (view instanceof RecyclerView) {
                 Context context = view.getContext();
                 RecyclerView recyclerView = (RecyclerView) view;
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(new RitualsAdapter(rituals));
+                recyclerView.setAdapter(mAdapter);
             }
 
+        });
+
+        SearchView searchView = getActivity().findViewById(R.id.menu_search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mAdapter.getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("SEARCH_RITUALS", newText);
+                mAdapter.getFilter().filter(newText);
+                return true;
+            }
         });
 
         return view;
