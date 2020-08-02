@@ -1,24 +1,17 @@
 package com.example.android.adventure.fragments;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SortedListAdapterCallback;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 
 import com.example.android.adventure.R;
@@ -28,7 +21,6 @@ import com.example.android.adventure.utils.SpellsViewModel;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -36,8 +28,8 @@ import java.util.List;
 public class SpellFragment extends Fragment {
 
     private ArrayList<Spell> mSpells;
-    private RecyclerView recyclerView;
     private SpellsAdapter mAdapter;
+    private RecyclerView recyclerView;
 
     private static final Comparator<Spell> COMPARATOR = new Comparator<Spell>() {
         @Override
@@ -50,8 +42,7 @@ public class SpellFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SpellFragment() {
-    }
+    public SpellFragment() { }
 
     /**
      *  Override of the onCreateView method to inflate the view using a RecyclerView. The view is
@@ -82,6 +73,14 @@ public class SpellFragment extends Fragment {
 
         });
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Reset the searchView.setOnQueryTextListener when the Fragment is active
         SearchView searchView = getActivity().findViewById(R.id.menu_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -92,12 +91,25 @@ public class SpellFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.d("SEARCH_SPELLS", newText);
-                mAdapter.replaceAll(mAdapter.filter(mSpells, newText));
+                ArrayList<Spell> filteredModelList = filter(mSpells, newText);
+                mAdapter.replaceAll(filteredModelList);
+                recyclerView.scrollToPosition(0);
                 return true;
             }
         });
-
-        return view;
     }
 
+    public ArrayList<Spell> filter(ArrayList<Spell> spells, String query) {
+        final String lowerCaseQuery = query.toLowerCase();
+
+        final ArrayList<Spell> filteredList = new ArrayList<>();
+        for (Spell spell : spells) {
+            final String title = spell.getTitle().toLowerCase();
+            final String summary = spell.getDescription().toLowerCase();
+            if (title.contains(lowerCaseQuery) || summary.contains(lowerCaseQuery)) {
+                filteredList.add(spell);
+            }
+        }
+        return filteredList;
+    }
 }

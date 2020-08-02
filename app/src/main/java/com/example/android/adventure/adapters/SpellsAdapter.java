@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +24,6 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
 
     private final Comparator<Spell> mComparator;
     private final LayoutInflater mInflater;
-
-    public SpellsAdapter(Context context, Comparator<Spell> comparator) {
-        mInflater = LayoutInflater.from(context);
-        mComparator = comparator;
-    }
 
     private final SortedList<Spell> mSortedList = new SortedList<>(Spell.class, new SortedList.Callback<Spell>() {
         @Override
@@ -68,6 +62,11 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
         }
     });
 
+    public SpellsAdapter(Context context, Comparator<Spell> comparator) {
+        mInflater = LayoutInflater.from(context);
+        mComparator = comparator;
+    }
+
     public void add(Spell spell) {
         mSortedList.add(spell);
     }
@@ -76,9 +75,7 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
         mSortedList.remove(spell);
     }
 
-    public void add(ArrayList<Spell> spells) {
-        mSortedList.addAll(spells);
-    }
+    public void add(ArrayList<Spell> spells) { mSortedList.addAll(spells); }
 
     public void remove(ArrayList<Spell> spells) {
         mSortedList.beginBatchedUpdates();
@@ -102,19 +99,6 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
         mSortedList.endBatchedUpdates();
     }
 
-    public ArrayList<Spell> filter(ArrayList<Spell> spells, String query) {
-        final String lowerCaseQuery = query.toLowerCase();
-
-        final ArrayList<Spell> filteredList = new ArrayList<>();
-        for (Spell spell : spells) {
-            final String text = spell.getTitle().toLowerCase();
-            if (text.contains(lowerCaseQuery)) {
-                filteredList.add(spell);
-            }
-        }
-        return filteredList;
-    }
-
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
@@ -130,7 +114,6 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.SpellViewH
         final Spell spell = mSortedList.get(position);
         holder.bind(spell);
     }
-
 
     @Override
     public int getItemCount() {
